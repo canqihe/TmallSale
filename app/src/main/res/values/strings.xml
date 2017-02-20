@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">天猫淘宝优惠券</string>
+    <string name="we_chat">WeChat:834569926</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="weibo">http://www.weibo.com/yhqxg</string>
+    <string name="email">834569926@qq.com</string>
+    <string name="firim">http://fir.im/colinqua</string>
+</resources>

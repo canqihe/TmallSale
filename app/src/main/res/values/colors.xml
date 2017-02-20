@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4caf50</color>
+    <color name="colorPrimaryDark">#388E3C</color>
+    <color name="colorAccent">#ff5722</color>
+
+    <color name="font_small">#999999</color>
+    <color name="font_middle">#666666</color>
+    <color name="font_high">#444444</color>
+    <color name="black_small">#f4f5f9</color>
+    <color name="black_middle">#e5e5e5</color>
+    <color name="black_high">#cccccc</color>
+    <color name="pinkA">#ff80ab</color>
+    <color name="orange">#ff5722</color>
+    <color name="yellow">#fdd835</color>
+
+    <!-- 400 -->
+    <color name="fg_pink">#fce4ec</color>
+    <!-- 50 -->
+    <color name="control_normal_light_blue">#e1f5fe</color>
+    <!-- 50 -->
+    <color name="control_normal_teal">#e0f2f1</color>
+    <!-- 400 -->
+    <color name="fg_deep_purple">#ede7f6</color>
+    <!-- 50 -->
+    <color name="control_normal_lime">#f9fbe7</color>
+    <!-- 50 -->
+    <color name="control_normal_blue_grey">#eceff1</color>
+</resources>
