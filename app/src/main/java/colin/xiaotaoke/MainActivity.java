@@ -20,6 +20,8 @@ import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.jaeger.library.StatusBarUtil;
 import com.squareup.okhttp.Request;
+import com.taobao.api.DefaultTaobaoClient;
+import com.taobao.api.TaobaoClient;
 import com.umeng.analytics.MobclickAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -113,8 +115,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     @Override
                     public void onError(Request request, Exception e) {
                         mProgressBar.setVisibility(View.GONE);
+                        refrefhProgerss.setVisibility(View.GONE);
                         e.printStackTrace();
-                        Toast.makeText(MainActivity.this, "访问失败，请联系开发者！", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "尴尬了，网络好像出了点问题。", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -233,8 +236,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void showGuide() {
         TapTargetSequence sequence = new TapTargetSequence(this)
                 .targets(
-                        TapTarget.forToolbarMenuItem(toolbar, R.id.refresh, "刷新商品", "点击后所有分类的商品都会刷新\n另外，商品每天都有上新哦~").id(0),
-                        TapTarget.forToolbarNavigationIcon(toolbar, "菜单栏", "这里还有侧边菜单功能，你看见了吗？").id(1))
+                        TapTarget.forToolbarMenuItem(toolbar, R.id.refresh, "刷新商品", "随机刷新所有类目的商品").id(0),
+                        TapTarget.forToolbarNavigationIcon(toolbar, "菜单栏", "遵循Android设计规范\n菜单功能在放在侧边").id(1))
                 .listener(new TapTargetSequence.Listener() {
                     @Override
                     public void onSequenceFinish() {

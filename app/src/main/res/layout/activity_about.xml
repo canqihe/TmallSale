@@ -90,7 +90,7 @@
                     android:layout_marginBottom="28dp"
                     android:layout_marginLeft="62dp"
                     android:layout_marginTop="28dp"
-                    android:text="加微信17081086123进群"
+                    android:text="17081086123"
                     android:textColor="@color/font_middle"
                     android:textSize="17dp"/>
 
@@ -142,7 +142,7 @@
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="1dp"
                         android:padding="12dp"
-                        android:text="这是一款聚合淘宝天猫各大商家优惠券的应用，能帮助你及时发现打折商品以便成为更好的剁手党。喜欢它的话可点击上方橙色按钮将它分享给好友，有什么想吐槽的请戳开发者邮箱。"
+                        android:text="这是一款聚合淘宝天猫各大商家优惠券的应用，能帮助你及时发现打折商品以便成为更好的剁手党。喜欢它的话可点击上方橙色按钮将它分享给好友，如果找不到想要的商品请加我微信帮你找。"
                         android:textColor="@color/font_middle"
                         android:textSize="16dp"/>
                 </LinearLayout>
