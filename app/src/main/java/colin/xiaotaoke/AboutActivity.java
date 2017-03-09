@@ -113,12 +113,6 @@ public class AboutActivity extends BaseActivity {
                 break;
             case R.id.name:
                 index++;
-                if (index == 1)
-                    Toast.makeText(this, "点三下，有惊喜。", Toast.LENGTH_SHORT).show();
-                if (index == 3) {
-                    index = 0;
-                    Toast.makeText(this, "逗你玩儿的~", Toast.LENGTH_SHORT).show();
-                }
                 break;
         }
     }

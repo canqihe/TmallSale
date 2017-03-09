@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="248dp"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+        <!--注意，要加个外层LinearLayout，不然不能显示-->
+        <colin.xiaotaoke.weight.LoopViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <me.relex.circleindicator.CircleIndicator
+            android:id="@+id/indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="5dp"
+            app:ci_drawable="@drawable/ic_fiber_manual_record_black_24dp"
+            app:ci_drawable_unselected="@drawable/ic_point_24dp"/>
+    </RelativeLayout>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
+        android:elevation="0dp"
+        app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/banner"
+        android:background="@android:color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/pro_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="16dp"
+                android:text="黑枸杞 青海诺木洪野生黑枸杞大果正宗精装特产黑枸杞包邮"
+                android:textColor="@color/font_high"
+                android:textSize="17dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/pro_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="$25.09"
+                    android:textColor="@color/orange"
+                    android:textSize="23dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/pro_oldprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="6dp"
+                    android:layout_toRightOf="@+id/pro_price"
+                    android:text="$35.80"
+                    android:textColor="@color/font_small"
+                    android:textSize="15dp"/>
+
+                <TextView
+                    android:id="@+id/pro_taobao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/radius_360_orange"
+                    android:drawableLeft="@mipmap/cricle_taobao"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:paddingRight="8dp"
+                    android:text="淘宝商品"
+                    android:textColor="#fff"
+                    android:textSize="12dp"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/pro_tmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/radius_360_oldred"
+                    android:drawableLeft="@mipmap/cricle_tmall"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:paddingRight="8dp"
+                    android:text="天猫商品"
+                    android:textColor="#fff"
+                    android:textSize="12dp"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.7dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/black_high"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="宝贝信息"
+                    android:textColor="#444"
+                    android:textSize="15dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/pro_store"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:drawableLeft="@drawable/ic_store_black_24dp"
+                    android:drawablePadding="8dp"
+                    android:gravity="center"
+                    android:text="九芝堂旗舰店"
+                    android:textColor="@color/font_high"
+                    android:textSize="14dp"/>
+
+                <TextView
+                    android:id="@+id/pro_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:drawableLeft="@drawable/ic_location_on_black_24dp"
+                    android:drawablePadding="8dp"
+                    android:gravity="center"
+                    android:text="浙江杭州"
+                    android:textColor="@color/font_high"
+                    android:textSize="14dp"/>
+
+                <TextView
+                    android:id="@+id/pro_sale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:drawableLeft="@drawable/ic_refresh_black_24dp"
+                    android:drawablePadding="8dp"
+                    android:gravity="center|left"
+                    android:text="本月已售2431"
+                    android:textColor="@color/font_high"
+                    android:textSize="14dp"/>
+
+                <TextView
+                    android:id="@+id/pro_coupon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:drawableLeft="@drawable/ic_youhuiquan"
+                    android:drawablePadding="8dp"
+                    android:gravity="center|left"
+                    android:text="优惠券剩余6000"
+                    android:textColor="@color/font_high"
+                    android:textSize="14dp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.7dp"
+                android:background="@color/black_high"/>
+
+            <RelativeLayout
+                android:id="@+id/btn_buy"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_margin="16dp"
+                android:background="@drawable/radius_orange">
+
+                <TextView
+                    android:id="@+id/pro_couponinfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="46dp"
+                    android:layout_centerInParent="true"
+                    android:drawableLeft="@drawable/ic_local_play_black_24dp"
+                    android:drawablePadding="8dp"
+                    android:elevation="2dp"
+                    android:gravity="center"
+                    android:text="优惠券25元"
+                    android:textColor="@android:color/white"
+                    android:textSize="17dp"
+                    android:textStyle="bold"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

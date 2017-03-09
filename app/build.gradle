@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'com.neenbedankt.android-apt'
 android {
     compileSdkVersion 25
@@ -20,15 +19,20 @@ android {
     }
 }
 
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.0.0'
-    compile 'com.android.support:design:25.0.0'
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:support-v4:23+'
+    apt 'com.jakewharton:butterknife-compiler:8.0.1'
+    compile 'com.android.support:design:25.0.0'
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:design:23.0.1'
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.6@aar'
@@ -36,11 +40,9 @@ dependencies {
     compile 'com.zhy:okhttputils:2.0.2'
     compile 'com.github.bumptech.glide:glide:3.6.1'
     compile 'com.jakewharton:butterknife:8.1.0'
-    apt 'com.jakewharton:butterknife-compiler:8.0.1'
     compile 'com.jaeger.statusbaruitl:library:1.2.6'
     compile 'com.android.support:cardview-v7:23.0.1'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.getkeepsafe.taptargetview:taptargetview:1.6.0'
-    compile files('libs/taobao-sdk-java-auto_1468685308771-20170306.jar')
-    compile files('libs/taobao-sdk-java-auto_1468685308771-20170306-source.jar')
+    compile 'me.relex:circleindicator:1.2.2@aar'
 }

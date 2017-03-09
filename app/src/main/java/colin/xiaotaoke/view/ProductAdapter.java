@@ -1,11 +1,7 @@
 package colin.xiaotaoke.view;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Paint;
-import android.net.Uri;
-import android.support.v7.widget.PopupMenu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -14,13 +10,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
 
 import colin.xiaotaoke.R;
-import colin.xiaotaoke.bean.CommodityBean;
-import colin.xiaotaoke.util.ShareUtils;
+import colin.xiaotaoke.bean.ProductDetailBean;
 import colin.xiaotaoke.util.Utils;
 
 /**
@@ -29,33 +23,39 @@ import colin.xiaotaoke.util.Utils;
  * 微信：cartier_he
  */
 
-public class CommodifyAdapter extends BaseAdapter {
-    List<CommodityBean.DataEntity.ResultEntity> mResultEntities;
+public class ProductAdapter extends BaseAdapter {
+    List<ProductDetailBean.TbkUatmFavoritesItemGetResponseEntity.ResultsEntity.UatmTbkItemEntity> uatmTbkItemEntities;
     Context mContext;
 
-    public CommodifyAdapter(Context context, List<CommodityBean.DataEntity.ResultEntity> resultEntities) {
-        this.mResultEntities = resultEntities;
+    public ProductAdapter(Context context) {
         this.mContext = context;
+    }
+
+    public void updateData(List<ProductDetailBean.TbkUatmFavoritesItemGetResponseEntity.ResultsEntity.UatmTbkItemEntity> datas) {
+        this.uatmTbkItemEntities = datas;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return mResultEntities.size();
+        if (uatmTbkItemEntities != null)
+            return uatmTbkItemEntities.size();
+        else return 0;
     }
 
     @Override
-    public Object getItem(int i) {
-        return mResultEntities.get(i);
+    public Object getItem(int position) {
+        return uatmTbkItemEntities == null ? null : uatmTbkItemEntities.get(position);
     }
 
     @Override
-    public long getItemId(int i) {
-        return i;
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
-        final CommodityBean.DataEntity.ResultEntity resultEntity = mResultEntities.get(i);
+        final ProductDetailBean.TbkUatmFavoritesItemGetResponseEntity.ResultsEntity.UatmTbkItemEntity resultEntity = uatmTbkItemEntities.get(i);
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = View.inflate(mContext, R.layout.item_commodity, null);
@@ -63,7 +63,6 @@ public class CommodifyAdapter extends BaseAdapter {
             viewHolder.title = (TextView) convertView.findViewById(R.id.title);
             viewHolder.price = (TextView) convertView.findViewById(R.id.price);
             viewHolder.orgPrice = (TextView) convertView.findViewById(R.id.org_price);
-            viewHolder.quanPrice = (TextView) convertView.findViewById(R.id.quan_price);
             viewHolder.pic = (ImageView) convertView.findViewById(R.id.pic);
             viewHolder.mProgressBar = (ProgressBar) convertView.findViewById(R.id.progress);
             viewHolder.more = (ImageView) convertView.findViewById(R.id.more);
@@ -72,17 +71,21 @@ public class CommodifyAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.title.setText(resultEntity.getD_title());
-        viewHolder.price.setText("CNY $" + resultEntity.getPrice());
-        viewHolder.orgPrice.setText("CNY $" + resultEntity.getOrg_Price());
+        viewHolder.title.setText(resultEntity.getTitle());
+        viewHolder.price.setText("CNY $" + resultEntity.getZk_final_price());
+        viewHolder.orgPrice.setText("CNY $" + resultEntity.getReserve_price());
         viewHolder.orgPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中划线
-        viewHolder.quanPrice.setText("优惠券" + resultEntity.getQuan_price().substring(0, resultEntity.getQuan_price().length() - 3) + "元");
-        viewHolder.sale.setText("已售" + resultEntity.getSales_num());
-        viewHolder.mProgressBar.setMax((Integer.parseInt(resultEntity.getQuan_surplus()) + Integer.parseInt(resultEntity.getQuan_receive())));
-        viewHolder.mProgressBar.setProgress(Integer.parseInt(resultEntity.getQuan_receive()));
-        Glide.with(mContext).load(resultEntity.getPic()).placeholder(Utils.getColor(i % 6)).into(viewHolder.pic);
+        viewHolder.sale.setText("已售" + resultEntity.getVolume());
+        if (resultEntity.getUser_type() == 0)
+            viewHolder.more.setImageResource(R.mipmap.icon_taobao);
+        else
+            viewHolder.more.setImageResource(R.mipmap.tmall);
+//        viewHolder.sale.setText("已售" + resultEntity.getVolume());
+//        viewHolder.mProgressBar.setMax((Integer.parseInt(resultEntity.getQuan_surplus()) + Integer.parseInt(resultEntity.getQuan_receive())));
+//        viewHolder.mProgressBar.setProgress(Integer.parseInt(resultEntity.getQuan_receive()));
+        Glide.with(mContext).load(resultEntity.getPict_url()).placeholder(Utils.getColor(i % 6)).into(viewHolder.pic);
 
-        viewHolder.more.setOnClickListener(new View.OnClickListener() {
+     /*   viewHolder.more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 final PopupMenu popupMenu = new PopupMenu(mContext, v);
@@ -111,12 +114,12 @@ public class CommodifyAdapter extends BaseAdapter {
                 popupMenu.show();
             }
         });
-
+*/
         return convertView;
     }
 
     class ViewHolder {
-        TextView price, orgPrice, quanPrice, title, sale;
+        TextView price, orgPrice, title, sale;
         ImageView pic, more;
         ProgressBar mProgressBar;
     }

@@ -13,4 +13,12 @@
     <string name="weibo">http://www.weibo.com/yhqxg</string>
     <string name="email">834569926@qq.com</string>
     <string name="firim">http://fir.im/colinqua</string>
+
+
+    <string name="header_hint_refresh_normal">下拉刷新</string>
+    <string name="header_hint_refresh_ready">松开刷新</string>
+    <string name="header_hint_refresh_loading">正在刷新&#8230;</string>
+    <string name="header_hint_refresh_time">上次刷新时间-</string>
+    <string name="footer_hint_load_normal">加载更多...</string>
+    <string name="footer_hint_load_ready">松开加载更多</string>
 </resources>

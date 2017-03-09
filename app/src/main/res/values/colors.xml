@@ -6,13 +6,15 @@
 
     <color name="font_small">#999999</color>
     <color name="font_middle">#666666</color>
-    <color name="font_high">#444444</color>
+    <color name="font_high">#222222</color>
     <color name="black_small">#f4f5f9</color>
     <color name="black_middle">#e5e5e5</color>
     <color name="black_high">#cccccc</color>
     <color name="pinkA">#ff80ab</color>
     <color name="orange">#ff5722</color>
     <color name="yellow">#fdd835</color>
+
+    <color name="old_red">#d32f2f</color>
 
     <!-- 400 -->
     <color name="fg_pink">#fce4ec</color>

@@ -20,22 +20,30 @@ import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.jaeger.library.StatusBarUtil;
 import com.squareup.okhttp.Request;
-import com.taobao.api.DefaultTaobaoClient;
-import com.taobao.api.TaobaoClient;
 import com.umeng.analytics.MobclickAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import colin.xiaotaoke.bean.CommodityBean;
+import colin.xiaotaoke.bean.ProductListBean;
+import colin.xiaotaoke.util.GlobalUrl;
+import colin.xiaotaoke.util.LogUtil;
 import colin.xiaotaoke.util.PreUtils;
 import colin.xiaotaoke.view.BaseDetailPager;
 import colin.xiaotaoke.view.BaseDetialAdapter;
 import colin.xiaotaoke.view.DetialListPager;
+
+import static colin.xiaotaoke.ApiTest.signTopRequest;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -55,11 +63,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     ProgressBar refrefhProgerss;
 
     private long exitTime = 0;
-    int index = 1;
     int pagePosition;
-
-    List<CommodityBean.DataEntity.ResultEntity> mResultEntities = new ArrayList<>();
-    String[] arr = {"女装", "男装", "母婴", "美妆", "居家", "鞋包", "美食", "数码家电", "内衣", "文体车品"};
+    String mTitle[];
 
     @Override
     protected void initView() {
@@ -104,12 +109,35 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     protected void initData() {
-        getDataFromServer();
+        try {
+            Map<String, String> params = new HashMap<>();
+            // 公共参数
+            params.put("method", GlobalUrl.PRODUCT_LIST);
+            params.put("app_key", GlobalUrl.TAOBAO_APP_KEY);
+            params.put("session", "test");
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            params.put("timestamp", df.format(new Date()));
+            params.put("format", "json");
+            params.put("v", "2.0");
+            params.put("sign_method", "hmac");
+            // 业务参数
+            params.put("fields", "favorites_title,favorites_id,type");
+            params.put("page_size", "20");
+            // 签名参数
+            params.put("sign", signTopRequest(params, GlobalUrl.TAOBAO_APP_SECRET, "hmac"));
+
+            String p = ApiTest.buildQuery(params, "UTF-8");
+
+            getDataFromServer(GlobalUrl.BASE_URL + p);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
-    public void getDataFromServer() {
+    public void getDataFromServer(String url) {
         OkHttpUtils.get()
-                .url("http://api.dataoke.com/index.php?r=goodsLink/android&type=android_quan&appkey=1tl14s3oay&v=2&page=" + index)
+                .url(url)
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -122,81 +150,37 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
                     @Override
                     public void onResponse(String response) {
-                        index++;
+                        LogUtil.e("数据：" + response);
                         parseJson(response);
                     }
                 });
     }
 
     public void parseJson(String response) {
-        CommodityBean commodityBean = gson.fromJson(response, CommodityBean.class);
-        CommodityBean.DataEntity dataEntity = commodityBean.getData();
-        mResultEntities = dataEntity.getResult();
-        if (mResultEntities.size() == 0) {
-            index = 1;
-            refrefhProgerss.setVisibility(View.GONE);
-            return;
+
+        List<BaseDetailPager> mPagerList = new ArrayList<>();
+
+        ProductListBean proList = gson.fromJson(response, ProductListBean.class);
+        List<ProductListBean.TbkUatmFavoritesGetResponseEntity.ResultsEntity.TbkFavoritesEntity> taokeList =
+                proList.getTbk_uatm_favorites_get_response().getResults().getTbk_favorites();
+
+        mTitle = new String[taokeList.size()];
+        String mId[] = new String[taokeList.size()];
+        for (int i = 0, j = taokeList.size(); i < j; i++) {
+            mTitle[i] = taokeList.get(i).getFavorites_title();
+            mId[i] = String.valueOf(taokeList.get(i).getFavorites_id());
+            mPagerList.add(new DetialListPager(MainActivity.this, mId[i]));
         }
-        List<CommodityBean.DataEntity.ResultEntity> nvzlist = new ArrayList<>();
-        List<CommodityBean.DataEntity.ResultEntity> nanzlist = new ArrayList<>();
-        List<CommodityBean.DataEntity.ResultEntity> muyinglist = new ArrayList<>();
-        List<CommodityBean.DataEntity.ResultEntity> meizlist = new ArrayList<>();
-        List<CommodityBean.DataEntity.ResultEntity> jujialist = new ArrayList<>();
-        List<CommodityBean.DataEntity.ResultEntity> xiebaolist = new ArrayList<>();
-        List<CommodityBean.DataEntity.ResultEntity> meislist = new ArrayList<>();
-        List<CommodityBean.DataEntity.ResultEntity> shumlist = new ArrayList<>();
-        List<CommodityBean.DataEntity.ResultEntity> neiylist = new ArrayList<>();
-        List<CommodityBean.DataEntity.ResultEntity> wentlist = new ArrayList<>();
-        for (CommodityBean.DataEntity.ResultEntity resultEntity : mResultEntities) {
-            if (resultEntity.getCid().equals("1")) {//女装
-                nvzlist.add(resultEntity);
-            }
-            if (resultEntity.getCid().equals("9")) {//男装
-                nanzlist.add(resultEntity);
-            }
-            if (resultEntity.getCid().equals("2")) {//母婴
-                muyinglist.add(resultEntity);
-            }
-            if (resultEntity.getCid().equals("3")) {//美妆
-                meizlist.add(resultEntity);
-            }
-            if (resultEntity.getCid().equals("4")) {//居家
-                jujialist.add(resultEntity);
-            }
-            if (resultEntity.getCid().equals("5")) {//鞋包
-                xiebaolist.add(resultEntity);
-            }
-            if (resultEntity.getCid().equals("6")) {//美食
-                meislist.add(resultEntity);
-            }
-            if (resultEntity.getCid().equals("8")) {//数码家电
-                shumlist.add(resultEntity);
-            }
-            if (resultEntity.getCid().equals("10")) {//内衣
-                neiylist.add(resultEntity);
-            }
-            if (resultEntity.getCid().equals("7")) {//文体车品
-                wentlist.add(resultEntity);
-            }
-        }
-        List<BaseDetailPager> mPagerList = new ArrayList<BaseDetailPager>();
-        mPagerList.add(new DetialListPager(MainActivity.this, nvzlist));
-        mPagerList.add(new DetialListPager(MainActivity.this, nanzlist));
-        mPagerList.add(new DetialListPager(MainActivity.this, muyinglist));
-        mPagerList.add(new DetialListPager(MainActivity.this, meizlist));
-        mPagerList.add(new DetialListPager(MainActivity.this, jujialist));
-        mPagerList.add(new DetialListPager(MainActivity.this, xiebaolist));
-        mPagerList.add(new DetialListPager(MainActivity.this, meislist));
-        mPagerList.add(new DetialListPager(MainActivity.this, shumlist));
-        mPagerList.add(new DetialListPager(MainActivity.this, neiylist));
-        mPagerList.add(new DetialListPager(MainActivity.this, wentlist));
-        viewPager.setOffscreenPageLimit(9);
-        viewPager.setAdapter(new BaseDetialAdapter(mPagerList, arr));
-        tabLayout.setViewPager(viewPager, arr);
+
+        viewPager.setOffscreenPageLimit(2);
+        viewPager.setAdapter(new BaseDetialAdapter(mPagerList, mTitle));
+
+        if (taokeList.size() > 5) tabLayout.setTabSpaceEqual(false);
+        else tabLayout.setTabSpaceEqual(true);
+        tabLayout.setVisibility(View.VISIBLE);
+        tabLayout.setViewPager(viewPager, mTitle);
 
         viewPager.setCurrentItem(pagePosition);
-
-        tabLayout.setVisibility(View.VISIBLE);
         mProgressBar.setVisibility(View.GONE);
         refrefhProgerss.setVisibility(View.GONE);
     }
@@ -269,7 +253,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -277,10 +260,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-                break;
-            case R.id.refresh:
-                refrefhProgerss.setVisibility(View.VISIBLE);
-                getDataFromServer();
                 break;
         }
         return super.onOptionsItemSelected(item);
