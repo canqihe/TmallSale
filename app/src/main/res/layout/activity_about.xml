@@ -41,11 +41,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:drawablePadding="5dp"
+                    android:drawablePadding="6dp"
                     android:drawableTop="@mipmap/logo_white"
+                    android:gravity="center"
                     android:text="@string/app_name"
                     android:textColor="#f5f5f5"
-                    android:textSize="16dp"/>
+                    android:textSize="15dp"/>
             </RelativeLayout>
 
             <android.support.v7.widget.Toolbar
