@@ -1,4 +1,4 @@
-package colin.xiaotaoke;
+package colin.xiaotaoke.util;
 
 import java.io.IOException;
 import java.io.InputStream;

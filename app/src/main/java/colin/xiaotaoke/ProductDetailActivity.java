@@ -28,6 +28,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import colin.xiaotaoke.bean.ProductDetailBean;
+import colin.xiaotaoke.util.ApiTest;
 import colin.xiaotaoke.util.GlobalUrl;
 import colin.xiaotaoke.util.LogUtil;
 import colin.xiaotaoke.util.ShareUtils;
@@ -35,7 +36,7 @@ import colin.xiaotaoke.view.ImageAdapter;
 import colin.xiaotaoke.weight.LoopViewPager;
 import me.relex.circleindicator.CircleIndicator;
 
-import static colin.xiaotaoke.ApiTest.signTopRequest;
+import static colin.xiaotaoke.util.ApiTest.signTopRequest;
 
 
 public class ProductDetailActivity extends BaseActivity {

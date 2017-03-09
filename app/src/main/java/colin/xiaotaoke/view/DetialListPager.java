@@ -21,7 +21,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import colin.xiaotaoke.ApiTest;
+import colin.xiaotaoke.util.ApiTest;
 import colin.xiaotaoke.ProductDetailActivity;
 import colin.xiaotaoke.R;
 import colin.xiaotaoke.bean.ProductDetailBean;
@@ -29,7 +29,7 @@ import colin.xiaotaoke.util.GlobalUrl;
 import colin.xiaotaoke.util.LogUtil;
 import colin.xiaotaoke.weight.XListView;
 
-import static colin.xiaotaoke.ApiTest.signTopRequest;
+import static colin.xiaotaoke.util.ApiTest.signTopRequest;
 
 /**
  * Created by Colin on 2017/2/16 12:16.

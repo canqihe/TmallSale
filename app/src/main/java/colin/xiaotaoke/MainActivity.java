@@ -34,8 +34,8 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import colin.xiaotaoke.bean.CommodityBean;
 import colin.xiaotaoke.bean.ProductListBean;
+import colin.xiaotaoke.util.ApiTest;
 import colin.xiaotaoke.util.GlobalUrl;
 import colin.xiaotaoke.util.LogUtil;
 import colin.xiaotaoke.util.PreUtils;
@@ -43,7 +43,7 @@ import colin.xiaotaoke.view.BaseDetailPager;
 import colin.xiaotaoke.view.BaseDetialAdapter;
 import colin.xiaotaoke.view.DetialListPager;
 
-import static colin.xiaotaoke.ApiTest.signTopRequest;
+import static colin.xiaotaoke.util.ApiTest.signTopRequest;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
