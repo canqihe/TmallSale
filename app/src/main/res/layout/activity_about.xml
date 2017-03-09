@@ -222,7 +222,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/ic_fiber_manual_record_black_24dp"
+                        android:drawableLeft="@drawable/ic_grey_24dp"
                         android:drawablePadding="8dp"
                         android:lineSpacingExtra="1dp"
                         android:padding="12dp"
@@ -233,7 +233,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/ic_fiber_manual_record_black_24dp"
+                        android:drawableLeft="@drawable/ic_grey_24dp"
                         android:drawablePadding="8dp"
                         android:lineSpacingExtra="1dp"
                         android:padding="12dp"
@@ -244,7 +244,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/ic_fiber_manual_record_black_24dp"
+                        android:drawableLeft="@drawable/ic_grey_24dp"
                         android:drawablePadding="8dp"
                         android:lineSpacingExtra="1dp"
                         android:padding="12dp"
@@ -255,7 +255,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/ic_fiber_manual_record_black_24dp"
+                        android:drawableLeft="@drawable/ic_grey_24dp"
                         android:drawablePadding="8dp"
                         android:lineSpacingExtra="1dp"
                         android:padding="12dp"
@@ -266,7 +266,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/ic_fiber_manual_record_black_24dp"
+                        android:drawableLeft="@drawable/ic_grey_24dp"
                         android:drawablePadding="8dp"
                         android:lineSpacingExtra="1dp"
                         android:padding="12dp"
@@ -277,7 +277,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/ic_fiber_manual_record_black_24dp"
+                        android:drawableLeft="@drawable/ic_grey_24dp"
                         android:drawablePadding="8dp"
                         android:lineSpacingExtra="1dp"
                         android:padding="12dp"
@@ -288,7 +288,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/ic_fiber_manual_record_black_24dp"
+                        android:drawableLeft="@drawable/ic_grey_24dp"
                         android:drawablePadding="8dp"
                         android:lineSpacingExtra="1dp"
                         android:padding="12dp"

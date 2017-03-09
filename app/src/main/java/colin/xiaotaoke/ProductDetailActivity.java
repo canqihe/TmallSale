@@ -266,8 +266,7 @@ public class ProductDetailActivity extends BaseActivity {
                 break;
             case R.id.refresh:
                 MobclickAgent.onEvent(this, "item_share");
-                ShareUtils.sendText(this, productInfo.getTitle() + "\n原价" + productInfo.getReserve_price() + "\n可领取优惠券【" + productInfo.getZk_final_price() + "元】" +
-                        "天猫包邮\n优惠券领取" + productInfo.getClick_url() + "\n商品链接" + productInfo.getClick_url() + "\n分享自[" + this.getString(R.string.app_name) + "]安卓APP客户端，下载地址:http://fir.im/colinqua");
+                ShareUtils.sendText(this, productInfo.getTitle() + "\n原价" + productInfo.getReserve_price() + "\n商品链接" + productInfo.getClick_url() + "\n分享自[" + this.getString(R.string.app_name) + "]安卓APP客户端，下载地址:http://fir.im/colinqua");
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -191,7 +191,8 @@
                     android:gravity="center|left"
                     android:text="优惠券剩余6000"
                     android:textColor="@color/font_high"
-                    android:textSize="14dp"/>
+                    android:textSize="14dp"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 
