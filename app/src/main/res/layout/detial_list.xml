@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <colin.xiaotaoke.weight.XListView
-        android:id="@+id/recycler"
+        android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"

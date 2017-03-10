@@ -1,7 +1,6 @@
 package colin.xiaotaoke;
 
 import android.content.Intent;
-import android.os.Build;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -12,13 +11,11 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
-import com.jaeger.library.StatusBarUtil;
 import com.squareup.okhttp.Request;
 import com.umeng.analytics.MobclickAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -42,6 +39,7 @@ import colin.xiaotaoke.util.PreUtils;
 import colin.xiaotaoke.view.BaseDetailPager;
 import colin.xiaotaoke.view.BaseDetialAdapter;
 import colin.xiaotaoke.view.DetialListPager;
+import colin.xiaotaoke.view.DetialListRecyPager;
 
 import static colin.xiaotaoke.util.ApiTest.signTopRequest;
 
@@ -57,21 +55,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     NavigationView navigationView;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
-    @BindView(R.id.load_progress)
-    ProgressBar mProgressBar;
-    @BindView(R.id.refresh_progress)
-    ProgressBar refrefhProgerss;
 
     private long exitTime = 0;
     int pagePosition;
+    boolean layoutSwitch;
     String mTitle[];
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_main);
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
-        if (Build.VERSION.SDK_INT >= 20)
-            StatusBarUtil.setTranslucent(this, 55);
         ButterKnife.bind(this);
     }
 
@@ -100,10 +93,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
             }
         });
-
-        if (PreUtils.getBoolean(this, "guide", true)) {
-            showGuide();
-        }
 
     }
 
@@ -142,8 +131,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Request request, Exception e) {
-                        mProgressBar.setVisibility(View.GONE);
-                        refrefhProgerss.setVisibility(View.GONE);
                         e.printStackTrace();
                         Toast.makeText(MainActivity.this, "尴尬了，网络好像出了点问题。", Toast.LENGTH_LONG).show();
                     }
@@ -166,13 +153,23 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         mTitle = new String[taokeList.size()];
         String mId[] = new String[taokeList.size()];
-        for (int i = 0, j = taokeList.size(); i < j; i++) {
-            mTitle[i] = taokeList.get(i).getFavorites_title();
-            mId[i] = String.valueOf(taokeList.get(i).getFavorites_id());
-            mPagerList.add(new DetialListPager(MainActivity.this, mId[i]));
+        if (!layoutSwitch) {
+            for (int i = 0, j = taokeList.size(); i < j; i++) {
+                mTitle[i] = taokeList.get(i).getFavorites_title();
+                mId[i] = String.valueOf(taokeList.get(i).getFavorites_id());
+                mPagerList.add(new DetialListPager(MainActivity.this, mId[i]));
+                layoutSwitch = true;
+            }
+        } else {
+            for (int i = 0, j = taokeList.size(); i < j; i++) {
+                mTitle[i] = taokeList.get(i).getFavorites_title();
+                mId[i] = String.valueOf(taokeList.get(i).getFavorites_id());
+                mPagerList.add(new DetialListRecyPager(MainActivity.this, mId[i]));
+                layoutSwitch = false;
+            }
         }
 
-        viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(taokeList.size());
         viewPager.setAdapter(new BaseDetialAdapter(mPagerList, mTitle));
 
         if (taokeList.size() > 5) tabLayout.setTabSpaceEqual(false);
@@ -181,8 +178,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         tabLayout.setViewPager(viewPager, mTitle);
 
         viewPager.setCurrentItem(pagePosition);
-        mProgressBar.setVisibility(View.GONE);
-        refrefhProgerss.setVisibility(View.GONE);
+
+        if (PreUtils.getBoolean(this, "guide", true)) {
+            showGuide();
+        }
+
     }
 
     @Override
@@ -220,8 +220,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void showGuide() {
         TapTargetSequence sequence = new TapTargetSequence(this)
                 .targets(
-                        TapTarget.forToolbarMenuItem(toolbar, R.id.refresh, "刷新商品", "随机刷新所有类目的商品").id(0),
-                        TapTarget.forToolbarNavigationIcon(toolbar, "菜单栏", "遵循Android设计规范\n菜单功能在放在侧边").id(1))
+//                        TapTarget.forToolbarMenuItem(toolbar, R.id.refresh, "刷新商品", "随机刷新所有类目的商品").id(0),
+                        TapTarget.forToolbarNavigationIcon(toolbar, "菜单栏", "遵循Material Design设计规范").id(0))
                 .listener(new TapTargetSequence.Listener() {
                     @Override
                     public void onSequenceFinish() {
@@ -253,6 +253,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
 
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -260,6 +261,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                break;
+            case R.id.switch_layout:
+                initData();
                 break;
         }
         return super.onOptionsItemSelected(item);

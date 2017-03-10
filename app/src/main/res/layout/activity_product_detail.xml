@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:fitsSystemWindows="true">
+    android:background="@android:color/white">
 
     <RelativeLayout
         android:id="@+id/banner"
         android:layout_width="match_parent"
-        android:layout_height="248dp"
+        android:layout_height="268dp"
         android:background="@android:color/white"
         android:orientation="vertical">
         <!--注意，要加个外层LinearLayout，不然不能显示-->
@@ -35,6 +33,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:layout_marginTop="24dp"
         android:background="@android:color/transparent"
         android:elevation="0dp"
         app:popupTheme="@style/AppTheme.PopupOverlay"/>

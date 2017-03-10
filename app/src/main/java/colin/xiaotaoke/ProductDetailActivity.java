@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jaeger.library.StatusBarUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import java.text.DateFormat;
@@ -119,7 +118,6 @@ public class ProductDetailActivity extends BaseActivity {
     @Override
     protected void initView() {
         setContentView(R.layout.activity_product_detail);
-        StatusBarUtil.setTranslucent(this, 55);
         ButterKnife.bind(this);
     }
 
@@ -255,7 +253,7 @@ public class ProductDetailActivity extends BaseActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.detail, menu);
         return true;
     }
 

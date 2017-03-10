@@ -3,7 +3,6 @@ package colin.xiaotaoke;
 import android.content.Intent;
 import android.view.View;
 
-import com.jaeger.library.StatusBarUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -13,7 +12,6 @@ public class WelcomeActivity extends BaseActivity {
     @Override
     protected void initView() {
         setContentView(R.layout.activity_welcome);
-        StatusBarUtil.setTranslucent(this, 55);
 
         Timer timer = new Timer();
         TimerTask tk = new TimerTask() {

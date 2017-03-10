@@ -2,10 +2,12 @@ package colin.xiaotaoke.view;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -26,7 +28,6 @@ import colin.xiaotaoke.util.Utils;
 public class ProductAdapter extends BaseAdapter {
     List<ProductDetailBean.TbkUatmFavoritesItemGetResponseEntity.ResultsEntity.UatmTbkItemEntity> uatmTbkItemEntities;
     Context mContext;
-
     public ProductAdapter(Context context) {
         this.mContext = context;
     }
@@ -71,6 +72,7 @@ public class ProductAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
         viewHolder.title.setText(resultEntity.getTitle());
         viewHolder.price.setText("CNY $" + resultEntity.getZk_final_price());
         viewHolder.orgPrice.setText("CNY $" + resultEntity.getReserve_price());

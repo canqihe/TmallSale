@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jaeger.library.StatusBarUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
@@ -50,7 +49,6 @@ public class AboutActivity extends BaseActivity {
     @Override
     protected void initView() {
         setContentView(R.layout.activity_about);
-        StatusBarUtil.setTranslucent(this, 55);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         mCollapsingToolbarLayout.setTitle("关于");

@@ -39,7 +39,7 @@ import static colin.xiaotaoke.util.ApiTest.signTopRequest;
 
 public class DetialListPager extends BaseDetailPager implements XListView.IXListViewListener {
 
-    @BindView(R.id.recycler)
+    @BindView(R.id.list_view)
     XListView mListView;
     @BindView(R.id.load_progress)
     ProgressBar mProgressBar;
@@ -71,7 +71,8 @@ public class DetialListPager extends BaseDetailPager implements XListView.IXList
 
         mProductAdapter = new ProductAdapter(mActivity);
         mListView.setAdapter(mProductAdapter);
-        getSign(pageNo);
+        uatmTbkItemEntities.clear();
+        getSign(1);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

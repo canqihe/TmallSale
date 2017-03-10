@@ -4,30 +4,28 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_small"
-    android:fitsSystemWindows="true">
+    android:background="@color/black_small">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="254dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="?attr/colorPrimary"
+            app:contentScrim="#ae63d7"
             app:expandedTitleTextAppearance="@style/CollapsingToolbarTitleStyle"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:background="@color/colorPrimary">
+                android:layout_height="match_parent">
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="fitXY"
                     android:src="@mipmap/shopping"/>
@@ -44,6 +42,7 @@
                     android:drawablePadding="6dp"
                     android:drawableTop="@mipmap/logo_white"
                     android:gravity="center"
+                    android:paddingTop="20dp"
                     android:text="@string/app_name"
                     android:textColor="#f5f5f5"
                     android:textSize="15dp"/>
@@ -53,6 +52,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:layout_marginTop="24dp"
                 app:layout_collapseMode="pin"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -261,17 +261,6 @@
                         android:lineSpacingExtra="1dp"
                         android:padding="12dp"
                         android:text="Glide"
-                        android:textColor="@color/font_middle"
-                        android:textSize="16dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/ic_grey_24dp"
-                        android:drawablePadding="8dp"
-                        android:lineSpacingExtra="1dp"
-                        android:padding="12dp"
-                        android:text="Statusbaruitl"
                         android:textColor="@color/font_middle"
                         android:textSize="16dp"/>
 

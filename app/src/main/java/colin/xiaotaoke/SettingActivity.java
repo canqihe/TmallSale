@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.jaeger.library.StatusBarUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
@@ -39,7 +38,6 @@ public class SettingActivity extends BaseActivity {
     @Override
     protected void initView() {
         setContentView(R.layout.activity_setting);
-        StatusBarUtil.setTranslucent(this, 55);
         ButterKnife.bind(this);
     }
 

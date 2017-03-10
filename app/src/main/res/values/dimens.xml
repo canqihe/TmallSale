@@ -10,4 +10,7 @@
     <dimen name="header_height">60dp</dimen>
     <dimen name="footer_height">90dp</dimen>
     <dimen name="footer_padding">10dp</dimen>
+
+    <dimen name="card_sides_margin">1.8dp</dimen>
+    <dimen name="card_vertical_margin">1.8dp</dimen>
 </resources>

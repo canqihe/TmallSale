@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_welcome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/color_bg"
-    android:gravity="center_horizontal">
+    android:background="@drawable/color_bg">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_gravity="center"
         android:drawablePadding="36dp"
         android:drawableTop="@mipmap/logo_big"
         android:textColor="@android:color/white"
         android:textSize="16dp"/>
 
-
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
