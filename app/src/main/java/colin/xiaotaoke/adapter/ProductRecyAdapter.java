@@ -142,7 +142,7 @@ public class ProductRecyAdapter extends RecyclerView.Adapter<ProductRecyAdapter.
             if (mUatmTbkItemEntity.getUser_type() == 0)
                 store.setImageResource(R.mipmap.icon_taobao);
             else
-                store.setImageResource(R.mipmap.tmall);
+                store.setImageResource(R.mipmap.icon_tmall);
 
             if (mOnItemClickLitener != null) {
                 itemView.setOnClickListener(new View.OnClickListener() {

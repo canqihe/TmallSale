@@ -28,4 +28,21 @@
     <color name="control_normal_lime">#f9fbe7</color>
     <!-- 50 -->
     <color name="control_normal_blue_grey">#eceff1</color>
+
+    <color name="color_a">#ef5350</color>
+    <color name="color_b">#ec407a</color>
+    <color name="color_c">#ab47bc</color>
+    <color name="color_d">#7e57c2</color>
+    <color name="color_e">#5c6bc0</color>
+    <color name="color_f">#42a5f5</color>
+    <color name="color_g">#26a69a</color>
+    <color name="color_h">#29b6f6</color>
+    <color name="color_i">#66bb6a</color>
+    <color name="color_j">#9ccc65</color>
+    <color name="color_k">#d4e157</color>
+    <color name="color_l">#ffca28</color>
+    <color name="color_m">#ff7043</color>
+    <color name="color_n">#607d8b</color>
+    <color name="color_o">#795548</color>
+
 </resources>

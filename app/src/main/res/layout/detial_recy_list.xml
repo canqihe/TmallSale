@@ -29,4 +29,15 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center"/>
 
+    <ProgressBar
+        android:id="@+id/small_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="3dp"
+        android:visibility="gone"/>>
+
 </RelativeLayout>

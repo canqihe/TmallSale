@@ -131,19 +131,6 @@ public class SettingActivity extends BaseActivity {
         }
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);

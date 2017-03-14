@@ -5,4 +5,9 @@
         android:icon="@drawable/ic_shuffle_black_24dp"
         android:title="切换样式"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/classify"
+        android:icon="@drawable/ic_blur_on_black_24dp"
+        android:title="商品分类"
+        app:showAsAction="always"/>
 </menu>

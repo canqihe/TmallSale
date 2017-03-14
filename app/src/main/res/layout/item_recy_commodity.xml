@@ -15,9 +15,9 @@
 
             <ImageView
                 android:id="@+id/pro_img"
-                android:background="@drawable/color_bg"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:background="@drawable/color_bg"
                 android:scaleType="centerCrop"/>
 
             <RelativeLayout
@@ -33,7 +33,7 @@
                     android:layout_marginTop="1dp"
                     android:text="CNY $123"
                     android:textColor="@color/old_red"
-                    android:textSize="17dp"
+                    android:textSize="16dp"
                     android:textStyle="bold"/>
 
                 <TextView

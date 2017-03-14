@@ -30,6 +30,19 @@ public class Utils {
     }
 
     /**
+     * 随机获取颜色背景图
+     *
+     * @return
+     */
+    public static int getRandColor(int position) {
+        int[] pic = {R.color.color_a, R.color.color_b, R.color.color_c, R.color.color_d, R.color.color_e, R.color.color_f, R.color.color_g, R.color.color_h, R.color.color_i, R.color.color_j,
+                R.color.color_k, R.color.color_l, R.color.color_m, R.color.color_n, R.color.color_o};
+        Random r = new Random();
+        int num = r.nextInt(pic.length);
+        return pic[num];
+    }
+
+    /**
      * 获取文件大小
      *
      * @param file

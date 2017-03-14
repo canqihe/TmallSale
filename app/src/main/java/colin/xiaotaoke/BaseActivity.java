@@ -2,6 +2,8 @@ package colin.xiaotaoke;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.gson.Gson;
@@ -38,4 +40,18 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         // TODO Auto-generated method stub
         super.onDestroy();
     }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

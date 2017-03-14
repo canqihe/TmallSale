@@ -43,7 +43,9 @@
 
         <activity android:name=".ProductDetailActivity">
         </activity>
-        <activity android:name=".ImageShowActivity">
+        <activity android:name=".ClassifyActivity">
+        </activity>
+        <activity android:name=".ProductListActivity">
         </activity>
     </application>
 

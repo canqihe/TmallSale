@@ -81,7 +81,7 @@ public class ProductAdapter extends BaseAdapter {
         if (resultEntity.getUser_type() == 0)
             viewHolder.more.setImageResource(R.mipmap.icon_taobao);
         else
-            viewHolder.more.setImageResource(R.mipmap.tmall);
+            viewHolder.more.setImageResource(R.mipmap.icon_tmall);
 //        viewHolder.sale.setText("已售" + resultEntity.getVolume());
 //        viewHolder.mProgressBar.setMax((Integer.parseInt(resultEntity.getQuan_surplus()) + Integer.parseInt(resultEntity.getQuan_receive())));
 //        viewHolder.mProgressBar.setProgress(Integer.parseInt(resultEntity.getQuan_receive()));

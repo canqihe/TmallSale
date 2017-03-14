@@ -3,6 +3,7 @@ package colin.xiaotaoke.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -50,6 +51,8 @@ public class DetialListRecyPager extends BaseDetailPager implements RecyclerView
     RecyclerView recyclerView;
     @BindView(R.id.swipe_refreshLayout)
     SwipeRefreshLayout refreshLayout;
+    @BindView(R.id.small_progress)
+    ProgressBar smallBar;
 
     String mId;
     int pageNo = 1;
@@ -188,6 +191,7 @@ public class DetialListRecyPager extends BaseDetailPager implements RecyclerView
     public void onLoadMore() {
         getSign(pageNo);
         if (mProductRecyAdapter.canLoadMore() && !loading) {
+            smallBar.setVisibility(View.VISIBLE);
             loading = true;
             mProductRecyAdapter.notifyItemChanged(mProductRecyAdapter.getItemCount() - 1);
             final int page = pageNo;
@@ -200,6 +204,7 @@ public class DetialListRecyPager extends BaseDetailPager implements RecyclerView
                     .execute(new StringCallback() {
                         @Override
                         public void onError(Request request, Exception e) {
+                            smallBar.setVisibility(View.GONE);
                             loading = false;
                             if (pageNo == page) {
                                 refreshLayout.setRefreshing(false);
@@ -209,6 +214,7 @@ public class DetialListRecyPager extends BaseDetailPager implements RecyclerView
 
                         @Override
                         public void onResponse(String response) {
+                            smallBar.setVisibility(View.GONE);
                             loading = false;
                             try {
                                 productDetailBean = gson.fromJson(response, ProductDetailBean.class);
@@ -224,6 +230,7 @@ public class DetialListRecyPager extends BaseDetailPager implements RecyclerView
                                 }
                             } catch (Exception e) {
                                 e.printStackTrace();
+                                smallBar.setVisibility(View.GONE);
                                 Toast.makeText(mActivity, "没有更多了。", Toast.LENGTH_SHORT).show();
                             }
 

@@ -111,7 +111,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             params.put("sign_method", "hmac");
             // 业务参数
             params.put("fields", "favorites_title,favorites_id,type");
-            params.put("page_size", "20");
+            params.put("page_size", "7");
+            params.put("page_no", "1");
             // 签名参数
             params.put("sign", signTopRequest(params, GlobalUrl.TAOBAO_APP_SECRET, "hmac"));
 
@@ -125,6 +126,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     public void getDataFromServer(String url) {
+        LogUtil.e("Main-url:" + url);
         OkHttpUtils.get()
                 .url(url)
                 .build()
@@ -155,14 +157,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         String mId[] = new String[taokeList.size()];
         if (!layoutSwitch) {
             for (int i = 0, j = taokeList.size(); i < j; i++) {
-                mTitle[i] = taokeList.get(i).getFavorites_title();
+                mTitle[i] = taokeList.get(i).getFavorites_title().substring(3, taokeList.get(i).getFavorites_title().length());
                 mId[i] = String.valueOf(taokeList.get(i).getFavorites_id());
                 mPagerList.add(new DetialListPager(MainActivity.this, mId[i]));
                 layoutSwitch = true;
             }
         } else {
             for (int i = 0, j = taokeList.size(); i < j; i++) {
-                mTitle[i] = taokeList.get(i).getFavorites_title();
+                mTitle[i] = taokeList.get(i).getFavorites_title().substring(3, taokeList.get(i).getFavorites_title().length());
                 mId[i] = String.valueOf(taokeList.get(i).getFavorites_id());
                 mPagerList.add(new DetialListRecyPager(MainActivity.this, mId[i]));
                 layoutSwitch = false;
@@ -210,6 +212,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.nav_setting:
                 startActivity(new Intent(this, SettingActivity.class));
                 break;
+            case R.id.nav_list:
+                startActivity(new Intent(this, ClassifyActivity.class));
+                break;
         }
 
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -220,8 +225,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void showGuide() {
         TapTargetSequence sequence = new TapTargetSequence(this)
                 .targets(
-//                        TapTarget.forToolbarMenuItem(toolbar, R.id.refresh, "刷新商品", "随机刷新所有类目的商品").id(0),
-                        TapTarget.forToolbarNavigationIcon(toolbar, "菜单栏", "遵循Material Design设计规范").id(0))
+                        TapTarget.forToolbarMenuItem(toolbar, R.id.classify, "所有商品分类", "更优质的商品等你来发现").id(0),
+                        TapTarget.forToolbarMenuItem(toolbar, R.id.switch_layout, "切换视图", "选择你喜欢的浏览方式").id(1),
+                        TapTarget.forToolbarNavigationIcon(toolbar, "菜单栏", "遵循Material Design设计规范").id(2))
                 .listener(new TapTargetSequence.Listener() {
                     @Override
                     public void onSequenceFinish() {
@@ -264,6 +270,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 break;
             case R.id.switch_layout:
                 initData();
+                break;
+            case R.id.classify:
+                startActivity(new Intent(this, ClassifyActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
