@@ -1,6 +1,7 @@
 package colin.xiaotaoke;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -11,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.flyco.tablayout.SlidingTabLayout;
@@ -56,6 +58,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
+    View headView;
+    LinearLayout drawerHeader;
+
     private long exitTime = 0;
     int pagePosition;
     boolean layoutSwitch;
@@ -66,6 +71,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         setContentView(R.layout.activity_main);
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         ButterKnife.bind(this);
+        headView = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        drawerHeader = (LinearLayout) headView.findViewById(R.id.drawer_header);
     }
 
     @Override
@@ -76,24 +83,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                pagePosition = position;
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
+        drawerHeader.setOnClickListener(this);
     }
 
     @Override
@@ -159,14 +149,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             for (int i = 0, j = taokeList.size(); i < j; i++) {
                 mTitle[i] = taokeList.get(i).getFavorites_title().substring(3, taokeList.get(i).getFavorites_title().length());
                 mId[i] = String.valueOf(taokeList.get(i).getFavorites_id());
-                mPagerList.add(new DetialListPager(MainActivity.this, mId[i]));
+                mPagerList.add(new DetialListRecyPager(MainActivity.this, mId[i]));
                 layoutSwitch = true;
             }
         } else {
             for (int i = 0, j = taokeList.size(); i < j; i++) {
                 mTitle[i] = taokeList.get(i).getFavorites_title().substring(3, taokeList.get(i).getFavorites_title().length());
                 mId[i] = String.valueOf(taokeList.get(i).getFavorites_id());
-                mPagerList.add(new DetialListRecyPager(MainActivity.this, mId[i]));
+                mPagerList.add(new DetialListPager(MainActivity.this, mId[i]));
                 layoutSwitch = false;
             }
         }
@@ -189,7 +179,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     protected void processClick(View view) {
-
+        switch (view.getId()) {
+            case R.id.drawer_header:
+                MobclickAgent.onEvent(this, "drawer_header");
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                Uri content_url = Uri.parse(this.getString(R.string.website));
+                intent.setData(content_url);
+                startActivity(intent);
+                break;
+        }
     }
 
     @Override
@@ -215,6 +214,17 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.nav_list:
                 startActivity(new Intent(this, ClassifyActivity.class));
                 break;
+            case R.id.nav_website:
+                MobclickAgent.onEvent(this, "drawer_header");
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                Uri content_url = Uri.parse(this.getString(R.string.website));
+                intent.setData(content_url);
+                startActivity(intent);
+                break;
+            case R.id.switch_layout:
+                initData();
+                break;
         }
 
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -225,9 +235,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void showGuide() {
         TapTargetSequence sequence = new TapTargetSequence(this)
                 .targets(
-                        TapTarget.forToolbarMenuItem(toolbar, R.id.classify, "所有商品分类", "更优质的商品等你来发现").id(0),
-                        TapTarget.forToolbarMenuItem(toolbar, R.id.switch_layout, "切换视图", "选择你喜欢的浏览方式").id(1),
-                        TapTarget.forToolbarNavigationIcon(toolbar, "菜单栏", "遵循Material Design设计规范").id(2))
+                        TapTarget.forToolbarNavigationIcon(toolbar, "菜单栏", "遵循Material Design设计规范").id(0),
+                        TapTarget.forToolbarMenuItem(toolbar, R.id.classify, "商品分类", "更优质的商品等你来发现").id(1),
+                        TapTarget.forToolbarMenuItem(toolbar, R.id.search, "搜索商品", "进入我们的优惠券网站领券\n海量商品应有尽有").id(2))
                 .listener(new TapTargetSequence.Listener() {
                     @Override
                     public void onSequenceFinish() {
@@ -268,8 +278,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case android.R.id.home:
                 finish();
                 break;
-            case R.id.switch_layout:
-                initData();
+            case R.id.search:
+                MobclickAgent.onEvent(this, "drawer_header");
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                Uri content_url = Uri.parse(this.getString(R.string.website));
+                intent.setData(content_url);
+                startActivity(intent);
                 break;
             case R.id.classify:
                 startActivity(new Intent(this, ClassifyActivity.class));

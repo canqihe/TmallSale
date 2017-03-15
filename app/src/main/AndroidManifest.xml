@@ -16,17 +16,30 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
         <activity android:name=".BaseActivity">
         </activity>
-        <activity android:name=".SettingActivity">
+        <activity
+            android:name=".SettingActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".WebViewActivity">
+        <activity
+            android:name=".WebViewActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".AboutActivity">
+        <activity
+            android:name=".AboutActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".WelcomeActivity">
+        <activity
+            android:name=".WelcomeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -41,11 +54,20 @@
             android:name="UMENG_CHANNEL"
             android:value="fir"/>
 
-        <activity android:name=".ProductDetailActivity">
+        <activity
+            android:name=".ProductDetailActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ClassifyActivity">
+        <activity
+            android:name=".ClassifyActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ProductListActivity">
+        <activity
+            android:name=".ProductListActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

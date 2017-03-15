@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.squareup.okhttp.Request;
+import com.umeng.analytics.MobclickAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -76,6 +77,7 @@ public class ClassifyActivity extends BaseActivity {
         gridClassify.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                MobclickAgent.onEvent(ClassifyActivity.this, "prolist_click");
                 ProductListBean.TbkUatmFavoritesGetResponseEntity.ResultsEntity.TbkFavoritesEntity favoritesEntity = mTbkFavoritesEntityArrayList.get(position);
                 Intent intent = new Intent(ClassifyActivity.this, ProductListActivity.class);
                 intent.putExtra("favorites_id", String.valueOf(favoritesEntity.getFavorites_id()));

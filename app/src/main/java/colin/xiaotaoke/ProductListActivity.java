@@ -43,8 +43,8 @@ public class ProductListActivity extends BaseActivity {
         getSupportActionBar().setTitle(name);
         String fId = getIntent().getStringExtra("favorites_id");
         List<BaseDetailPager> mPagerList = new ArrayList<>();
-        mPagerList.add(new DetialListPager(this, fId));
         mPagerList.add(new DetialListRecyPager(this, fId));
+        mPagerList.add(new DetialListPager(this, fId));
         viewPager.setAdapter(new BaseDetialAdapter(mPagerList, mTitle));
     }
 

@@ -78,6 +78,7 @@ public class ProductDetailActivity extends BaseActivity {
     RelativeLayout btnBuy;
     @BindView(R.id.pro_couponinfo)
     TextView proCouponInfo;
+    String buyText;
 
     List<String> mImgs = new ArrayList<>();
     ProductDetailBean.TbkUatmFavoritesItemGetResponseEntity.ResultsEntity.UatmTbkItemEntity productInfo;
@@ -189,11 +190,13 @@ public class ProductDetailActivity extends BaseActivity {
             proTaobao.setVisibility(View.VISIBLE);
             proTmall.setVisibility(View.GONE);
             proPrice.setTextColor(Color.parseColor("#ff5722"));
+            buyText = "去淘宝下单";
             btnBuy.setBackground(this.getResources().getDrawable(R.drawable.radius_orange));
         } else {
             proTaobao.setVisibility(View.GONE);
             proTmall.setVisibility(View.VISIBLE);
             proPrice.setTextColor(Color.parseColor("#d32f2f"));
+            buyText = "去天猫下单";
             btnBuy.setBackground(this.getResources().getDrawable(R.drawable.radius_oldred));
         }
 
@@ -202,7 +205,8 @@ public class ProductDetailActivity extends BaseActivity {
         double priceSale = priceOld - priceZk;
         double sale = (priceSale / priceOld) * 100;
 
-        proCouponInfo.setText("折扣优惠" + (int) sale + "%");
+//        proCouponInfo.setText("折扣优惠" + (int) sale + "%");
+        proCouponInfo.setText(buyText);
     }
 
     //获取请求签名

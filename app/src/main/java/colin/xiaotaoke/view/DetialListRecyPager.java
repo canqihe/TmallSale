@@ -45,8 +45,6 @@ import static colin.xiaotaoke.util.ApiTest.signTopRequest;
  */
 
 public class DetialListRecyPager extends BaseDetailPager implements RecyclerViewLinearListener.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, ProductRecyAdapter.OnItemClickLitener {
-    @BindView(R.id.load_progress)
-    ProgressBar mProgressBar;
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
     @BindView(R.id.swipe_refreshLayout)
@@ -130,13 +128,11 @@ public class DetialListRecyPager extends BaseDetailPager implements RecyclerView
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Request request, Exception e) {
-                        mProgressBar.setVisibility(View.GONE);
                         e.printStackTrace();
                     }
 
                     @Override
                     public void onResponse(String response) {
-                        mProgressBar.setVisibility(View.GONE);
                         try {
                             productDetailBean = gson.fromJson(response, ProductDetailBean.class);
                             List<ProductDetailBean.TbkUatmFavoritesItemGetResponseEntity.ResultsEntity.UatmTbkItemEntity> entities

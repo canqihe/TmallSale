@@ -1,9 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
-        android:id="@+id/switch_layout"
-        android:icon="@drawable/ic_shuffle_black_24dp"
-        android:title="切换样式"
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="搜索商品"
         app:showAsAction="always"/>
     <item
         android:id="@+id/classify"
