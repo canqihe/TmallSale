@@ -2,6 +2,9 @@ package colin.xiaotaoke.util;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
 
 import java.io.File;
@@ -166,6 +169,26 @@ public class Utils {
         } catch (Exception e) {
 
         }
+    }
+
+    /**
+     * 返回当前程序版本
+     */
+    public static String getAppVersionName(Context context) {
+        String versionName = "";
+        try {
+            // ---get the package info---
+            PackageManager pm = context.getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
+            versionName = pi.versionName;
+            if (versionName == null) {
+                return "";
+            }
+
+        } catch (Exception e) {
+            LogUtil.e("VersionInfo");
+        }
+        return versionName;
     }
 
 }

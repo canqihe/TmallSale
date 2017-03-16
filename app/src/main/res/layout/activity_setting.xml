@@ -106,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/text2"
-                android:text="834569926@qq.com"
+                android:text="@string/email"
                 android:textColor="@color/font_small"
                 android:textSize="13dp"/>
 
@@ -135,7 +135,7 @@
                 android:id="@+id/text3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="给应用评分"
+                android:text="检查更新"
                 android:textColor="#222222"
                 android:textSize="16dp"/>
 
@@ -144,7 +144,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/text3"
-                android:text="给我们一些鼓励吧"
+                android:text="V 1.2.0"
                 android:textColor="@color/font_small"
                 android:textSize="13dp"/>
         </RelativeLayout>

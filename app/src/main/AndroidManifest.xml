@@ -52,7 +52,7 @@
             android:value="58a7c2f5f43e4871c6001d35"/>
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="fir"/>
+            android:value="coolapk"/>
 
         <activity
             android:name=".ProductDetailActivity"

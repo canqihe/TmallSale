@@ -34,6 +34,8 @@ public class SettingActivity extends BaseActivity {
     TextView cacheSize;
     @BindView(R.id.setting_cleancache)
     RelativeLayout settingCleancache;
+    @BindView(R.id.version_tv)
+    TextView version;
 
     @Override
     protected void initView() {
@@ -60,6 +62,7 @@ public class SettingActivity extends BaseActivity {
         long cachesize = cache + total;
         String size = Utils.getFormatSize(cachesize);//格式转换
         cacheSize.setText(size);
+        version.setText("V " + Utils.getAppVersionName(this));
     }
 
     @Override
@@ -83,8 +86,7 @@ public class SettingActivity extends BaseActivity {
                 MobclickAgent.onEvent(this, "setting_email");
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("plain/text");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"834569926@qq.com"});
-//                intent.putExtra(Intent.EXTRA_SUBJECT, "来自" + getString(R.string.app_name) + "Android客户端");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{this.getString(R.string.email)});
                 intent.putExtra(Intent.EXTRA_TEXT, "来自" + getString(R.string.app_name) + "Android客户端");
                 try {
                     if (!(this instanceof Activity)) {
