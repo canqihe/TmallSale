@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 
@@ -135,8 +136,15 @@ public class ProductDetailActivity extends BaseActivity {
     protected void initData() {
         productInfo = (ProductDetailBean.TbkUatmFavoritesItemGetResponseEntity.ResultsEntity.UatmTbkItemEntity)
                 getIntent().getSerializableExtra("productInfo");
-        mImgs = productInfo.getSmall_images().getString();
-        setProductImg(mImgs);//设置商品图片
+        try {
+            mImgs = productInfo.getSmall_images().getString();
+            setProductImg(mImgs);//设置商品图片
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.finish();
+            Toast.makeText(this, "商品信息不完整", Toast.LENGTH_SHORT).show();
+        }
 
         getSign(productInfo.getNum_iid());
 
