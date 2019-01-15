@@ -1,8 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
-        android:id="@+id/refresh"
-        android:icon="@drawable/ic_refresh_black_24dp"
-        android:title="换一换"
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="搜索商品"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/classify"
+        android:icon="@drawable/ic_blur_on_black_24dp"
+        android:title="商品分类"
         app:showAsAction="always"/>
 </menu>

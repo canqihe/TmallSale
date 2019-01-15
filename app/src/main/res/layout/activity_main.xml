@@ -7,41 +7,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="colin.xiaotaoke.MainActivity">
+        android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/color_bg"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorPrimary"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/color_bg"
+                app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-
-            <ProgressBar
-                android:id="@+id/refresh_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@color/colorPrimary"
-                android:indeterminate="true"
-                android:visibility="gone"/>
 
             <com.flyco.tablayout.SlidingTabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/color_bg"
                 android:visibility="gone"
                 app:tl_indicator_color="@android:color/white"
                 app:tl_indicator_height="2dp"
@@ -57,13 +48,6 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        <ProgressBar
-            android:id="@+id/load_progress"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:layout_gravity="center"/>
-
     </android.support.design.widget.CoordinatorLayout>
 
 
@@ -72,8 +56,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer"/>
 
 </android.support.v4.widget.DrawerLayout>

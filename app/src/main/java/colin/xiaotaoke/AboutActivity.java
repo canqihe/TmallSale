@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jaeger.library.StatusBarUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.BindView;
@@ -50,7 +49,6 @@ public class AboutActivity extends BaseActivity {
     @Override
     protected void initView() {
         setContentView(R.layout.activity_about);
-        StatusBarUtil.setTranslucent(this, 55);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         mCollapsingToolbarLayout.setTitle("关于");
@@ -60,7 +58,6 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-
     }
 
     @Override
@@ -95,7 +92,7 @@ public class AboutActivity extends BaseActivity {
                 MobclickAgent.onEvent(this, "about_email");
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("plain/text");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"834569926@qq.com"});
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{this.getString(R.string.email)});
 //                intent.putExtra(Intent.EXTRA_SUBJECT, "来自" + getString(R.string.app_name) + "Android客户端");
                 intent.putExtra(Intent.EXTRA_TEXT, "来自" + getString(R.string.app_name) + "Android客户端");
                 try {
@@ -113,12 +110,6 @@ public class AboutActivity extends BaseActivity {
                 break;
             case R.id.name:
                 index++;
-                if (index == 1)
-                    Toast.makeText(this, "点三下，有惊喜。", Toast.LENGTH_SHORT).show();
-                if (index == 3) {
-                    index = 0;
-                    Toast.makeText(this, "逗你玩儿的~", Toast.LENGTH_SHORT).show();
-                }
                 break;
         }
     }

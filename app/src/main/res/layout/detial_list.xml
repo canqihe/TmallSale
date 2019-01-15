@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recycler"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@+id/toolbar"
-    android:background="@color/black_small"
-    android:clipToPadding="false"
-    android:divider="@android:color/transparent"
-    android:dividerHeight="0dp"
-    android:scrollbars="none"/>
+    android:layout_height="match_parent">
 
+    <colin.xiaotaoke.weight.XListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/black_small"
+        android:clipToPadding="false"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:scrollbars="none"/>
+
+
+    <ProgressBar
+        android:id="@+id/load_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"/>
+
+</RelativeLayout>

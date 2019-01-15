@@ -4,30 +4,28 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_small"
-    android:fitsSystemWindows="true">
+    android:background="@color/black_small">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="254dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="?attr/colorPrimary"
+            app:contentScrim="#ae63d7"
             app:expandedTitleTextAppearance="@style/CollapsingToolbarTitleStyle"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:background="@color/colorPrimary">
+                android:layout_height="match_parent">
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="fitXY"
                     android:src="@mipmap/shopping"/>
@@ -41,17 +39,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:drawablePadding="5dp"
+                    android:drawablePadding="6dp"
                     android:drawableTop="@mipmap/logo_white"
+                    android:gravity="center"
+                    android:paddingTop="20dp"
                     android:text="@string/app_name"
                     android:textColor="#f5f5f5"
-                    android:textSize="16dp"/>
+                    android:textSize="15dp"/>
             </RelativeLayout>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:layout_marginTop="24dp"
                 app:layout_collapseMode="pin"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -90,7 +91,7 @@
                     android:layout_marginBottom="28dp"
                     android:layout_marginLeft="62dp"
                     android:layout_marginTop="28dp"
-                    android:text="加微信17081086123进群"
+                    android:text="17081086123"
                     android:textColor="@color/font_middle"
                     android:textSize="17dp"/>
 
@@ -106,46 +107,6 @@
                     android:textColor="@color/colorAccent"
                     android:textSize="14dp"/>
 
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="12dp"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:visibility="visible">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:padding="12dp"
-                        android:text="简介"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="16dp"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/black_middle"/>
-
-                    <TextView
-                        android:id="@+id/w_upload"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:lineSpacingExtra="1dp"
-                        android:padding="12dp"
-                        android:text="这是一款聚合淘宝天猫各大商家优惠券的应用，能帮助你及时发现打折商品以便成为更好的剁手党。喜欢它的话可点击上方橙色按钮将它分享给好友，有什么想吐槽的请戳开发者邮箱。"
-                        android:textColor="@color/font_middle"
-                        android:textSize="16dp"/>
-                </LinearLayout>
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
@@ -185,7 +146,7 @@
                         android:gravity="center_vertical"
                         android:lineSpacingExtra="2dp"
                         android:padding="12dp"
-                        android:text="贺灿琪\nAndroid developer "
+                        android:text="Colin He\nDeveloper • Design"
                         android:textColor="@color/font_middle"
                         android:textSize="14dp"/>
 
@@ -212,10 +173,118 @@
                         android:gravity="center_vertical"
                         android:lineSpacingExtra="2dp"
                         android:padding="12dp"
-                        android:text="邮箱\n834569926@qq.com"
+                        android:text="邮箱\nhecanqi168@gmail.com"
                         android:textColor="@color/font_middle"
                         android:textSize="14dp"
                         android:visibility="visible"/>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="12dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:padding="12dp"
+                        android:text="开源许可"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16dp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/black_middle"/>
+
+                    <TextView
+                        android:id="@+id/w_upload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="1dp"
+                        android:padding="12dp"
+                        android:text="这是一款聚合淘宝天猫各大商家优惠券的应用，能帮助你及时发现打折商品以便成为更好的剁手党。喜欢它的话可点击上方橙色按钮将它分享给好友，如果找不到想要的商品请加我微信帮你找。"
+                        android:textColor="@color/font_middle"
+                        android:textSize="16dp"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_grey_24dp"
+                        android:drawablePadding="8dp"
+                        android:lineSpacingExtra="1dp"
+                        android:padding="12dp"
+                        android:text="Butterknife"
+                        android:textColor="@color/font_middle"
+                        android:textSize="16dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_grey_24dp"
+                        android:drawablePadding="8dp"
+                        android:lineSpacingExtra="1dp"
+                        android:padding="12dp"
+                        android:text="FlycoTabLayout"
+                        android:textColor="@color/font_middle"
+                        android:textSize="16dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_grey_24dp"
+                        android:drawablePadding="8dp"
+                        android:lineSpacingExtra="1dp"
+                        android:padding="12dp"
+                        android:text="Zhy-Okhttputils"
+                        android:textColor="@color/font_middle"
+                        android:textSize="16dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_grey_24dp"
+                        android:drawablePadding="8dp"
+                        android:lineSpacingExtra="1dp"
+                        android:padding="12dp"
+                        android:text="Glide"
+                        android:textColor="@color/font_middle"
+                        android:textSize="16dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_grey_24dp"
+                        android:drawablePadding="8dp"
+                        android:lineSpacingExtra="1dp"
+                        android:padding="12dp"
+                        android:text="Taptargetview"
+                        android:textColor="@color/font_middle"
+                        android:textSize="16dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_grey_24dp"
+                        android:drawablePadding="8dp"
+                        android:lineSpacingExtra="1dp"
+                        android:padding="12dp"
+                        android:text="Relex:circleindicator"
+                        android:textColor="@color/font_middle"
+                        android:textSize="16dp"/>
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -225,7 +294,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="45dp"
-                android:text="&#169; All rights reserved by Colin."
+                android:text="&#169; All rights reserved by buy360.xin."
                 android:textColor="@color/font_small"
                 android:textSize="13dp"/>
 
@@ -235,7 +304,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="25dp"
                 android:layout_marginTop="6dp"
-                android:text="数据由DTK提供"
+                android:text="商品数据由淘宝联盟提供"
                 android:textColor="@color/font_small"
                 android:textSize="13dp"/>
 
@@ -249,7 +318,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:clickable="true"
-        android:src="@drawable/ic_share_black_24dp"
+        android:src="@drawable/ic_share_white_24dp"
         app:backgroundTint="@color/colorAccent"
         app:borderWidth="0dp"
         app:layout_anchor="@id/appbar"

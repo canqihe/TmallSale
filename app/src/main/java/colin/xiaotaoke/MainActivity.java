@@ -1,7 +1,7 @@
 package colin.xiaotaoke;
 
 import android.content.Intent;
-import android.os.Build;
+import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -12,28 +12,38 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
-import com.jaeger.library.StatusBarUtil;
 import com.squareup.okhttp.Request;
 import com.umeng.analytics.MobclickAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import colin.xiaotaoke.bean.CommodityBean;
+import colin.xiaotaoke.bean.ProductListBean;
+import colin.xiaotaoke.util.ApiTest;
+import colin.xiaotaoke.util.GlobalUrl;
+import colin.xiaotaoke.util.LogUtil;
 import colin.xiaotaoke.util.PreUtils;
 import colin.xiaotaoke.view.BaseDetailPager;
 import colin.xiaotaoke.view.BaseDetialAdapter;
 import colin.xiaotaoke.view.DetialListPager;
+import colin.xiaotaoke.view.DetialListRecyPager;
+
+import static colin.xiaotaoke.util.ApiTest.signTopRequest;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -47,25 +57,22 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     NavigationView navigationView;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
-    @BindView(R.id.load_progress)
-    ProgressBar mProgressBar;
-    @BindView(R.id.refresh_progress)
-    ProgressBar refrefhProgerss;
+
+    View headView;
+    LinearLayout drawerHeader;
 
     private long exitTime = 0;
-    int index = 1;
     int pagePosition;
-
-    List<CommodityBean.DataEntity.ResultEntity> mResultEntities = new ArrayList<>();
-    String[] arr = {"女装", "男装", "母婴", "美妆", "居家", "鞋包", "美食", "数码家电", "内衣", "文体车品"};
+    boolean layoutSwitch;
+    String mTitle[];
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_main);
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
-        if (Build.VERSION.SDK_INT >= 20)
-            StatusBarUtil.setTranslucent(this, 55);
         ButterKnife.bind(this);
+        headView = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        drawerHeader = (LinearLayout) headView.findViewById(R.id.drawer_header);
     }
 
     @Override
@@ -76,23 +83,93 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+        drawerHeader.setOnClickListener(this);
+    }
 
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    @Override
+    protected void initData() {
+        try {
+            Map<String, String> params = new HashMap<>();
+            // 公共参数
+            params.put("method", GlobalUrl.PRODUCT_LIST);
+            params.put("app_key", GlobalUrl.TAOBAO_APP_KEY);
+            params.put("session", "test");
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            params.put("timestamp", df.format(new Date()));
+            params.put("format", "json");
+            params.put("v", "2.0");
+            params.put("sign_method", "hmac");
+            // 业务参数
+            params.put("fields", "favorites_title,favorites_id,type");
+            params.put("page_size", "7");
+            params.put("page_no", "1");
+            // 签名参数
+            params.put("sign", signTopRequest(params, GlobalUrl.TAOBAO_APP_SECRET, "hmac"));
 
+            String p = ApiTest.buildQuery(params, "UTF-8");
+
+            getDataFromServer(GlobalUrl.BASE_URL + p);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void getDataFromServer(String url) {
+        LogUtil.e("Main-url:" + url);
+        OkHttpUtils.get()
+                .url(url)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Request request, Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(MainActivity.this, "尴尬了，网络好像出了点问题。", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+                        LogUtil.e("数据：" + response);
+                        parseJson(response);
+                    }
+                });
+    }
+
+    public void parseJson(String response) {
+
+        List<BaseDetailPager> mPagerList = new ArrayList<>();
+
+        ProductListBean proList = gson.fromJson(response, ProductListBean.class);
+        List<ProductListBean.TbkUatmFavoritesGetResponseEntity.ResultsEntity.TbkFavoritesEntity> taokeList =
+                proList.getTbk_uatm_favorites_get_response().getResults().getTbk_favorites();
+
+        mTitle = new String[taokeList.size()];
+        String mId[] = new String[taokeList.size()];
+        if (!layoutSwitch) {
+            for (int i = 0, j = taokeList.size(); i < j; i++) {
+                mTitle[i] = taokeList.get(i).getFavorites_title().substring(3, taokeList.get(i).getFavorites_title().length());
+                mId[i] = String.valueOf(taokeList.get(i).getFavorites_id());
+                mPagerList.add(new DetialListRecyPager(MainActivity.this, mId[i]));
+                layoutSwitch = true;
             }
-
-            @Override
-            public void onPageSelected(int position) {
-                pagePosition = position;
+        } else {
+            for (int i = 0, j = taokeList.size(); i < j; i++) {
+                mTitle[i] = taokeList.get(i).getFavorites_title().substring(3, taokeList.get(i).getFavorites_title().length());
+                mId[i] = String.valueOf(taokeList.get(i).getFavorites_id());
+                mPagerList.add(new DetialListPager(MainActivity.this, mId[i]));
+                layoutSwitch = false;
             }
+        }
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
+        viewPager.setOffscreenPageLimit(taokeList.size());
+        viewPager.setAdapter(new BaseDetialAdapter(mPagerList, mTitle));
 
-            }
-        });
+        if (taokeList.size() > 5) tabLayout.setTabSpaceEqual(false);
+        else tabLayout.setTabSpaceEqual(true);
+        tabLayout.setVisibility(View.VISIBLE);
+        tabLayout.setViewPager(viewPager, mTitle);
+
+        viewPager.setCurrentItem(pagePosition);
 
         if (PreUtils.getBoolean(this, "guide", true)) {
             showGuide();
@@ -101,106 +178,17 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     @Override
-    protected void initData() {
-        getDataFromServer();
-    }
-
-    public void getDataFromServer() {
-        OkHttpUtils.get()
-                .url("http://api.dataoke.com/index.php?r=goodsLink/android&type=android_quan&appkey=1tl14s3oay&v=2&page=" + index)
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Request request, Exception e) {
-                        mProgressBar.setVisibility(View.GONE);
-                        e.printStackTrace();
-                        Toast.makeText(MainActivity.this, "访问失败，请联系开发者！", Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onResponse(String response) {
-                        index++;
-                        parseJson(response);
-                    }
-                });
-    }
-
-    public void parseJson(String response) {
-        CommodityBean commodityBean = gson.fromJson(response, CommodityBean.class);
-        CommodityBean.DataEntity dataEntity = commodityBean.getData();
-        mResultEntities = dataEntity.getResult();
-        if (mResultEntities.size() == 0) {
-            index = 1;
-            refrefhProgerss.setVisibility(View.GONE);
-            return;
-        }
-        List<CommodityBean.DataEntity.ResultEntity> nvzlist = new ArrayList<>();
-        List<CommodityBean.DataEntity.ResultEntity> nanzlist = new ArrayList<>();
-        List<CommodityBean.DataEntity.ResultEntity> muyinglist = new ArrayList<>();
-        List<CommodityBean.DataEntity.ResultEntity> meizlist = new ArrayList<>();
-        List<CommodityBean.DataEntity.ResultEntity> jujialist = new ArrayList<>();
-        List<CommodityBean.DataEntity.ResultEntity> xiebaolist = new ArrayList<>();
-        List<CommodityBean.DataEntity.ResultEntity> meislist = new ArrayList<>();
-        List<CommodityBean.DataEntity.ResultEntity> shumlist = new ArrayList<>();
-        List<CommodityBean.DataEntity.ResultEntity> neiylist = new ArrayList<>();
-        List<CommodityBean.DataEntity.ResultEntity> wentlist = new ArrayList<>();
-        for (CommodityBean.DataEntity.ResultEntity resultEntity : mResultEntities) {
-            if (resultEntity.getCid().equals("1")) {//女装
-                nvzlist.add(resultEntity);
-            }
-            if (resultEntity.getCid().equals("9")) {//男装
-                nanzlist.add(resultEntity);
-            }
-            if (resultEntity.getCid().equals("2")) {//母婴
-                muyinglist.add(resultEntity);
-            }
-            if (resultEntity.getCid().equals("3")) {//美妆
-                meizlist.add(resultEntity);
-            }
-            if (resultEntity.getCid().equals("4")) {//居家
-                jujialist.add(resultEntity);
-            }
-            if (resultEntity.getCid().equals("5")) {//鞋包
-                xiebaolist.add(resultEntity);
-            }
-            if (resultEntity.getCid().equals("6")) {//美食
-                meislist.add(resultEntity);
-            }
-            if (resultEntity.getCid().equals("8")) {//数码家电
-                shumlist.add(resultEntity);
-            }
-            if (resultEntity.getCid().equals("10")) {//内衣
-                neiylist.add(resultEntity);
-            }
-            if (resultEntity.getCid().equals("7")) {//文体车品
-                wentlist.add(resultEntity);
-            }
-        }
-        List<BaseDetailPager> mPagerList = new ArrayList<BaseDetailPager>();
-        mPagerList.add(new DetialListPager(MainActivity.this, nvzlist));
-        mPagerList.add(new DetialListPager(MainActivity.this, nanzlist));
-        mPagerList.add(new DetialListPager(MainActivity.this, muyinglist));
-        mPagerList.add(new DetialListPager(MainActivity.this, meizlist));
-        mPagerList.add(new DetialListPager(MainActivity.this, jujialist));
-        mPagerList.add(new DetialListPager(MainActivity.this, xiebaolist));
-        mPagerList.add(new DetialListPager(MainActivity.this, meislist));
-        mPagerList.add(new DetialListPager(MainActivity.this, shumlist));
-        mPagerList.add(new DetialListPager(MainActivity.this, neiylist));
-        mPagerList.add(new DetialListPager(MainActivity.this, wentlist));
-        viewPager.setOffscreenPageLimit(9);
-        viewPager.setAdapter(new BaseDetialAdapter(mPagerList, arr));
-        tabLayout.setViewPager(viewPager, arr);
-
-        viewPager.setCurrentItem(pagePosition);
-
-        tabLayout.setVisibility(View.VISIBLE);
-        mProgressBar.setVisibility(View.GONE);
-        refrefhProgerss.setVisibility(View.GONE);
-    }
-
-    @Override
     protected void processClick(View view) {
-
+        switch (view.getId()) {
+            case R.id.drawer_header:
+                MobclickAgent.onEvent(this, "drawer_header");
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                Uri content_url = Uri.parse(this.getString(R.string.website));
+                intent.setData(content_url);
+                startActivity(intent);
+                break;
+        }
     }
 
     @Override
@@ -223,6 +211,20 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.nav_setting:
                 startActivity(new Intent(this, SettingActivity.class));
                 break;
+            case R.id.nav_list:
+                startActivity(new Intent(this, ClassifyActivity.class));
+                break;
+            case R.id.nav_website:
+                MobclickAgent.onEvent(this, "drawer_header");
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                Uri content_url = Uri.parse(this.getString(R.string.website));
+                intent.setData(content_url);
+                startActivity(intent);
+                break;
+            case R.id.switch_layout:
+                initData();
+                break;
         }
 
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -233,8 +235,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void showGuide() {
         TapTargetSequence sequence = new TapTargetSequence(this)
                 .targets(
-                        TapTarget.forToolbarMenuItem(toolbar, R.id.refresh, "刷新商品", "点击后所有分类的商品都会刷新\n另外，商品每天都有上新哦~").id(0),
-                        TapTarget.forToolbarNavigationIcon(toolbar, "菜单栏", "这里还有侧边菜单功能，你看见了吗？").id(1))
+                        TapTarget.forToolbarNavigationIcon(toolbar, "菜单栏", "遵循Material Design设计规范").id(0),
+                        TapTarget.forToolbarMenuItem(toolbar, R.id.classify, "商品分类", "更优质的商品等你来发现").id(1),
+                        TapTarget.forToolbarMenuItem(toolbar, R.id.search, "搜索商品", "进入我们的优惠券网站领券\n海量商品应有尽有").id(2))
                 .listener(new TapTargetSequence.Listener() {
                     @Override
                     public void onSequenceFinish() {
@@ -275,9 +278,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case android.R.id.home:
                 finish();
                 break;
-            case R.id.refresh:
-                refrefhProgerss.setVisibility(View.VISIBLE);
-                getDataFromServer();
+            case R.id.search:
+                MobclickAgent.onEvent(this, "drawer_header");
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                Uri content_url = Uri.parse(this.getString(R.string.website));
+                intent.setData(content_url);
+                startActivity(intent);
+                break;
+            case R.id.classify:
+                startActivity(new Intent(this, ClassifyActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -2,6 +2,9 @@ package colin.xiaotaoke.util;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
 
 import java.io.File;
@@ -24,6 +27,19 @@ public class Utils {
      */
     public static int getColor(int position) {
         int[] pic = {R.color.fg_pink, R.color.control_normal_light_blue, R.color.control_normal_teal, R.color.fg_deep_purple, R.color.control_normal_lime, R.color.control_normal_blue_grey};
+        Random r = new Random();
+        int num = r.nextInt(pic.length);
+        return pic[num];
+    }
+
+    /**
+     * 随机获取颜色背景图
+     *
+     * @return
+     */
+    public static int getRandColor(int position) {
+        int[] pic = {R.color.color_a, R.color.color_b, R.color.color_c, R.color.color_d, R.color.color_e, R.color.color_f, R.color.color_g, R.color.color_h, R.color.color_i, R.color.color_j,
+                R.color.color_k, R.color.color_l, R.color.color_m, R.color.color_n, R.color.color_o};
         Random r = new Random();
         int num = r.nextInt(pic.length);
         return pic[num];
@@ -153,6 +169,26 @@ public class Utils {
         } catch (Exception e) {
 
         }
+    }
+
+    /**
+     * 返回当前程序版本
+     */
+    public static String getAppVersionName(Context context) {
+        String versionName = "";
+        try {
+            // ---get the package info---
+            PackageManager pm = context.getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
+            versionName = pi.versionName;
+            if (versionName == null) {
+                return "";
+            }
+
+        } catch (Exception e) {
+            LogUtil.e("VersionInfo");
+        }
+        return versionName;
     }
 
 }

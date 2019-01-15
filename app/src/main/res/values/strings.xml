@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">天猫淘宝优惠券</string>
-    <string name="we_chat">WeChat:834569926</string>
+    <string name="app_name">淘客优选</string>
+    <string name="we_chat">WeChat:17081086123</string>
+    <string name="website">http://www.buy360.xin</string>
+    <string name="solgan">省钱购物从这里开始</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -9,6 +11,14 @@
     <string name="title_activity_main2">Main2Activity</string>
 
     <string name="weibo">http://www.weibo.com/yhqxg</string>
-    <string name="email">834569926@qq.com</string>
+    <string name="email">hecanqi168@gmail.com</string>
     <string name="firim">http://fir.im/colinqua</string>
+
+
+    <string name="header_hint_refresh_normal">下拉刷新</string>
+    <string name="header_hint_refresh_ready">松开刷新</string>
+    <string name="header_hint_refresh_loading">正在刷新&#8230;</string>
+    <string name="header_hint_refresh_time">上次刷新时间-</string>
+    <string name="footer_hint_load_normal">加载更多...</string>
+    <string name="footer_hint_load_ready">松开加载更多</string>
 </resources>
